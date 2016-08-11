@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+ 
+ <!-- Google maps API -->
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>  
+
+<!-- using jquery -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+
+<body>
+
+<form action="/destination-process" method="POST">
+
+Start Location: <input type="text" name="start" id="start" value=" "><br>
+<br>
+
+Destination: <input type="text" name="end" id="destination" value=" "><br>
+
+<br>
+Miles/Gallon: <!-- <input type="text" name="miles/gallon" value=" "> --><!-- <br> -->
+<select> 
+          <option value="40">40</option>
+          <option value="50">50</option>
+</select>
+<br>
+Tank Capcity: <!-- <input type="text" name="Tank Capacity" value=" "><br> -->
+<select>
+          <option value="12.4 gallon">12.4 gallon</option>
+          <option value="20.0 gallson">20</option>
+</select>
+<br>
+<br>
+<input type="submit" value="Submit">
+
+</form>
+</head>
+</body>
+</html>

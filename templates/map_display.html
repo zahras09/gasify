@@ -1,0 +1,33 @@
+<div>  </div>
+
+<p> 
+Your start location is "{{ start }}" and
+your destination is "{{ end }}"
+
+<input id="start" type="hidden" value="{{start}}"/>
+<input id="end"   type="hidden" value="{{end}}"/>
+</p>
+
+
+<style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+</style>
+
+<div id="map"></div>
+
+
+  <!-- Google maps API -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.2/lodash.js"></script>
+<script src="/static/mapstyles.js"></script>
+<script src="/static/googlemaps.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKdnL2Tl4kXtLF7chKpyA-Z5_aJhEjbeM&callback=initMap">
+</script>
+
