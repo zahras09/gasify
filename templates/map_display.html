@@ -1,14 +1,13 @@
-<div>  </div>
+
 
 <p> 
 Your start location is "{{ start }}" and
 your destination is "{{ end }}"
-
+<!-- use hidden so the start and end box don't show up on the map browser page. -->
 <input id="start" type="hidden" value="{{start}}"/>
 <input id="end"   type="hidden" value="{{end}}"/>
 </p>
-
-
+<!-- Must add height to map or else it will not show up. -->
 <style>
       html, body {
         height: 100%;
@@ -19,9 +18,8 @@ your destination is "{{ end }}"
         height: 100%;
       }
 </style>
-
+<!-- use the map id in googlemaps.js in the function initmap() -->
 <div id="map"></div>
-
 
   <!-- Google maps API -->
 <script src="https://code.jquery.com/jquery.js"></script>

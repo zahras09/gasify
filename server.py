@@ -48,6 +48,14 @@ def destination_process():
                                                end=user_entered_destination)
 
 
+############################## GASFEED #############################
+# get user's current location for the gasfeed api,
+@app.route('/location')
+def current_location():
+    """ """
+    return render_template ()
+
+
 
 
 # @app.route('/googlemap', methods=['POST'])
