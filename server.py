@@ -14,7 +14,7 @@ app.secret_key = "ABC"
 # display homepage
 @app.route('/')
 def index():
-    """Home"""
+    """Homepage"""
     return render_template("homepage.html")
 
 
@@ -50,9 +50,9 @@ def destination_process():
 
 ############################## GASFEED #############################
 # get user's current location for the gasfeed api,
-@app.route('/location')
+@app.route('/current-location', methods=['POST'])
 def current_location():
-    """ """
+    """  """
     return render_template ()
 
 
