@@ -1,8 +1,11 @@
 
 # import secrets.sh
+import gasfeed
 import os
-from flask import Flask, render_template, request, redirect
+import json
+from flask import Flask, render_template, request, redirect, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
+
 app = Flask(__name__)
 
 # Required to use Flask sessions and the debug toolbar
@@ -50,10 +53,19 @@ def destination_process():
 
 ############################## GASFEED #############################
 # get user's current location for the gasfeed api,
-@app.route('/current-location', methods=['POST'])
+@app.route('/getgasstations', methods=['GET'])
 def current_location():
     """  """
-    return render_template ()
+
+    lat = request.args.get('lat')
+    lng = request.args.get('lng')
+
+    stations = gasfeed.gas_stations(lat, lng)
+
+    cheap_stations = gasfeed.cheapest_gas_stations(stations)
+
+    return json.dumps(cheap_stations)
+
 
 
 

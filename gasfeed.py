@@ -7,87 +7,108 @@ url = 'api.mygasfeed.com'
 api_key = "c2pmuvu4mv"
 
 
+def gas_stations(lat,lng):
+	gas_stations_info = []
+
+	# access the MyGasFeed API
+	r = requests.get("http://api.mygasfeed.com/stations/radius/" + lat + "/" + lng + "/10/reg/price/c2pmuvu4mv.json")
+	gas_stations_info = r.json()
+
+	return gas_stations_info['stations']
+
+
 # Tested query : http://api.mygasfeed.com/stations/radius/37.7749/-122.4194/2/reg/distance/c2pmuvu4mv.json
+def cheapest_gas_stations(stations):
 
-# gas_station_info = json.load
-r = requests.get("http://api.mygasfeed.com/stations/radius/37.7749/-122.4194/10/reg/price/c2pmuvu4mv.json")
-results = r.json()
-
-
-stations = results['stations']
-# print stations
-
- # ---------------- from here, move this to javascript ! 
+    print stations
 
 
-# create an empty list:
-prices_list = []
-# iterate over every station in the whole list of stations:
-for station in stations:
-	# add the price and and index of every station in stations list to the
-    # price_list.
-    prices_list.append( (station['reg_price'],stations.index(station)) )
-
-# to print result as dictionary:
-	# prices_list.append( {stations.index(station): station['reg_price']} )
-
-# sorts through the list by having the price first then the index.
-prices_list.sort()
-# print "Thisnis  price list!!!", prices_list
-
-# passes the value of the last 10 cheapest gas stations to the variable.
-cheapest_10_stations = prices_list[:10]
-print "cheapest_10_stations:"
-print cheapest_10_stations
+    cheapest_stations = []
 
 
-# this returns a tuple of price and index:
-# print cheapest_10_stations
-
-####### NEXT STEPS ##############
-# Iterate over the cheapest_10_stations
-# for each station tuple
-    # we need to get index of that station from the tuple : tuple[1]
-    # use the index to get the full station information from stations list
-	# then you get a dictionary that represent info about that station
-	# get data from that dictionary as needed
+    # find the cheapest stations and put them into `cheapest_stations`
 
 
-#####This iteration iterates over every station in cheapest_10_stations
- # which only contains a price and an index as a tuple and passes those values
- # into the variable index_of_station.
- # stations_list[] return a list of 10 stations
-stations_list = []
-for cheap_station in cheapest_10_stations:
-	#cheap station[1] return the index of the station
-	index_of_station = cheap_station[1]
-	# print "index_of_station:"
-	# print index_of_station
-	station = stations[index_of_station]
-	# station is the dictionary
-	stations_list.append(station)
-	# print "-----------------"
-	# print station
+
+    return cheapest_stations
 
 
-# for test_station in stations_list:
-# 	print "lat:"
-# 	print test_station['lat']
-# 	print "long:"
-# 	print test_station['lng']
-# 	print "regular price:"
-# 	print test_station['reg_price']
 
 
-# for key in stations_list:
-# 	station.get(key)
-# 	print key
-
-# address_list = []
-# for address in cheapest_10_stations:
-# 	address_of_station = 
 
 
+
+# 	# ---------------- from here, move this to javascript ! 
+
+
+# 	# create an empty list:
+# 	prices_list = []
+# 	# iterate over every station in the whole list of stations:
+# 	for station in stations:
+# 		# add the price and and index of every station in stations list to the
+# 	    # price_list.
+# 	    prices_list.append( (station['reg_price'],stations.index(station)) )
+
+# 	# to print result as dictionary:
+# 		# prices_list.append( {stations.index(station): station['reg_price']} )
+
+# 	# sorts through the list by having the price first then the index.
+# 	prices_list.sort()
+# 	# print "Thisnis  price list!!!", prices_list
+
+# 	# passes the value of the last 10 cheapest gas stations to the variable.
+# 	cheapest_10_stations = prices_list[:10]
+# 	print "cheapest_10_stations:"
+# 	print cheapest_10_stations
+
+
+# 	# this returns a tuple of price and index:
+# 	# print cheapest_10_stations
+
+# 	####### NEXT STEPS ##############
+# 	# Iterate over the cheapest_10_stations
+# 	# for each station tuple
+# 	    # we need to get index of that station from the tuple : tuple[1]
+# 	    # use the index to get the full station information from stations list
+# 		# then you get a dictionary that represent info about that station
+# 		# get data from that dictionary as needed
+
+
+# 	#####This iteration iterates over every station in cheapest_10_stations
+# 	 # which only contains a price and an index as a tuple and passes those values
+# 	 # into the variable index_of_station.
+# 	 # stations_list[] return a list of 10 stations
+# 	stations_list = []
+# 	for cheap_station in cheapest_10_stations:
+# 		#cheap station[1] return the index of the station
+# 		index_of_station = cheap_station[1]
+# 		# print "index_of_station:"
+# 		# print index_of_station
+# 		station = stations[index_of_station]
+# 		# station is the dictionary
+# 		stations_list.append(station)
+# 		# print "-----------------"
+# 		# print station
+
+
+# 	# for test_station in stations_list:
+# 	# 	print "lat:"
+# 	# 	print test_station['lat']
+# 	# 	print "long:"
+# 	# 	print test_station['lng']
+# 	# 	print "regular price:"
+# 	# 	print test_station['reg_price']
+
+
+# 	# for key in stations_list:
+# 	# 	station.get(key)
+# 	# 	print key
+
+# 	# address_list = []
+# 	# for address in cheapest_10_stations:
+# 	# 	address_of_station = 
+# 	return stations_list
+# cheapest_gas_stations()
 
 
 
@@ -401,4 +422,3 @@ for cheap_station in cheapest_10_stations:
 #         }
 #     ]
 # }
-        
