@@ -2,35 +2,20 @@
 
 
 
-function loadDirectionsWithGasStations() {
-  //constructing a new object (new google.maps)
-  var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
-
-  var map = initMap();
-
-  // makes the map appear
-  directionsDisplay.setMap(map);
-
-  var start = document.getElementById('start').value;
-  var end   = document.getElementById('end').value;
-
-  calculateRoute(start, end, directionsService, directionsDisplay, map);
-}
 
 
 // Initializes the Google Maps object with some settings and our defined lat/lng
 // Returns the instance of the Google Maps object
 function initMap() {
         
-  var startLocation = {lat: 37.788668, lng: -122.411499}; // map is centered at Hackbright
+  var centerLocation = {lat: 37.788668, lng: -122.411499}; // map is centered at Hackbright
 
   var htmlMap = document.getElementById('map');
 
   //constructing a new object and grabbing the id from html(the DOM)
   var map = new google.maps.Map(htmlMap, {
     zoom: 7,
-    center: startLocation,
+    center: centerLocation,
     scrollwheel: false,
     zoomControl: true,
     panControl: false,
@@ -51,7 +36,12 @@ function calculateRoute(start, end, directionsService, directionsDisplay, map) {
   }, function(directions, status) {
     if (status === 'OK') {
       directionsDisplay.setDirections(directions);
+
+      
+      // After you fix gasfeed file
       fetchAndDisplayGasStations(directions, map);
+    
+
     } else {
       window.alert('Directions request failed due to ' + status);
     }
@@ -59,6 +49,55 @@ function calculateRoute(start, end, directionsService, directionsDisplay, map) {
 }
 
 
+function displayGasStation(latlng, map=map) {
+  
+  var marker = new google.maps.Marker({
+          position: latlng,
+          map: map
+          // title: 'Gas Station'
+        });
+ 
+
+
+  new google.maps.Marker({
+    position: latlng,
+    title: 'gas',
+    animation: google.maps.Animation.DROP,
+    map: map
+  });
+}
+
+
+// this funct. is getting directions and rendering the direction
+function loadDirectionsWithGasStations() {
+  //constructing a new object (new google.maps)
+  var directionsService = new google.maps.DirectionsService;
+  var directionsDisplay = new google.maps.DirectionsRenderer;
+
+
+
+  // initializing a map
+  var map = initMap();
+
+  // makes the map appear
+  directionsDisplay.setMap(map);
+  // in html file and grab the element with the id, start and end and pass it to these variables
+  var start = document.getElementById('start').value;
+  var end   = document.getElementById('end').value;
+
+
+  // var myImageURL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCKdnL2Tl4kXtLF7chKpyA-Z5_aJhEjbeM&callback=loadDirectionsWithGasStations"
+
+  // calls the function calculateRoute and passes the 5 argumets(already defined)into this funct.
+  calculateRoute(start, end, directionsService, directionsDisplay, map);
+
+
+
+  // This is the setup for adding one Gas Station to the map
+  var gasStation = {lat:37.7749, lng:-122.4194};
+
+  displayGasStation(gasStation, map);
+}
 
 // function findAndDisplayLocalGasStations(searchLocation, map) {
 //   var lat = searchLocation.lat;
@@ -109,27 +148,9 @@ function calculateRoute(start, end, directionsService, directionsDisplay, map) {
 // }
  
 // function that displays the gas station on the map\
-var displayGasStation = function(latlng, map) {
-  
-  var marker = new google.maps.Marker({
-          position: latlng,
-          map: map,
-          // title: 'Gas Station'
-        });
- 
 
 
-  new google.maps.Marker({
-    position: latLng,
-    title: 'gas',
-    animation: google.maps.Animation.DROP,
-    map: map,
-  });
-};
 
 
-var gasStation = new google.maps.latlng(37.7749, -122.4194);
-
-displayGasStation(gasStation, map);
 
 

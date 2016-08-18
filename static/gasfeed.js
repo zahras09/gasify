@@ -4,15 +4,38 @@ function fetchAndDisplayGasStations(directions, map) {
   // this url is talking to my server.py. for each location in locations give me the lat. and lng.
   // locations is set equal to pickLocationsToSearchForGas funct.(below)coming from google api.
   locations.forEach(function(location) {
-    var url = '/getgasstations?lat=' + location.lat + '&lng=' + location.lng;
+    var url = '/getgasstations.json?lat=' + location.lat + '&lng=' + location.lng;
 
-    // I THINK THIS PART IS INCOMPLETE!!!!
-    $.get(url, function(cheapestStations) {
-      console.log("something is printing from my gasfeed js");
-      console.log(cheapestStations);
+    
+
+
+
+
+    // I THINK THIS PART IS INCOMPLETE!!!!it is incomplete add the successhandler function
+    // and loop over the dictionary and get the add a marker for every lat.,lng of the dict.
+    // result.
+    $.get(url, function(result){
+
+      console.log(result);
+
+
+      
     });
 
   });
+
+
+
+
+  //     .load(function(cheapestStations) {
+  //     console.log("something is printing from my gasfeed js");
+  //     console.log(cheapestStations);
+  //   });
+
+
+
+
+  // });
 }
 
 function pickLocationsToSearchForGas(directions) {

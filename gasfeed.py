@@ -36,20 +36,24 @@ def cheapest_gas_stations(stations):
 	for station in stations:
 		# add the price and and index of every station in stations list to the
 	    # price_list.
+
 		prices_list.append( (station['reg_price'],stations.index(station)) )
 
 		# # to print result as dictionary:
-		prices_list.append( {stations.index(station): station['reg_price']} )
+		# prices_list.append( {stations.index(station): station['reg_price']} )
 
 		# # sorts through the list by having the price first then the index.
 		prices_list.sort()
 		# # print "Thisnis  price list!!!", prices_list
 
 		# # passes the value of the last 10 cheapest gas stations to the variable.
-	cheapest_10_stations = prices_list[:10]
-	print "cheapest_10_stations:"
-	print cheapest_10_stations
-	return cheapest_10_stations
+	cheapest_station_price_index = prices_list[0]
+
+	cheapest_station_index = cheapest_station_price_index[1]
+	cheapest_station = stations[cheapest_station_index]
+	# print "cheapest_10_stations:"
+	# print cheapest_10_stations
+	return cheapest_station
 
 
 		# # this returns a tuple of price and index:
