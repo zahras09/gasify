@@ -102,12 +102,34 @@ function calculateRoute(start, end, directionsService, directionsDisplay, map) {
 //   });
 // }
 
-// function that displays the gas station on the map
-function displayGasStation(latLng, map) {
+// function addMarker() {
+//   var myImageURL = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+//   var image = myImageURL;
+//   var nearSydney = new google.maps.LatLng(-34.788666, 150.41146);
+// }
+ 
+// function that displays the gas station on the map\
+var displayGasStation = function(latlng, map) {
+  
+  var marker = new google.maps.Marker({
+          position: latlng,
+          map: map,
+          // title: 'Gas Station'
+        });
+ 
+
+
   new google.maps.Marker({
     position: latLng,
     title: 'gas',
     animation: google.maps.Animation.DROP,
     map: map,
   });
-}
+};
+
+
+var gasStation = new google.maps.latlng(37.7749, -122.4194);
+
+displayGasStation(gasStation, map);
+
+

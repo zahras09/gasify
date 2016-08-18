@@ -1,34 +1,56 @@
 
+<!DOCTYPE html>
 
-<p> 
-Your start location is "{{ start }}" and
-your destination is "{{ end }}"
-<!-- use hidden so the start and end box don't show up on the map browser page. -->
-<input id="start" type="hidden" value="{{start}}"/>
-<input id="end"   type="hidden" value="{{end}}"/>
-</p>
-<!-- Must add height to map or else it will not show up. -->
-<style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-</style>
-<!-- use the map id in googlemaps.js in the function initmap() -->
-<div id="map"></div>
+<html>
+<head>
+	<title></title>
+	<style>
+	      html, body {
+	        height: 100%;
+	        margin: 0;
+	        padding: 0;
+	      }
+	      #map {
+	        height: 100%;
+	      }
+	</style>
 
-  <!-- Google maps API -->
-<script src="https://code.jquery.com/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.2/lodash.js">
-</script>
-<script src="/static/mapstyles.js"></script>
-<script src="/static/googlemaps.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKdnL2Tl4kXtLF7chKpyA-Z5_aJhEjbeM&callback=loadDirectionsWithGasStations">
-</script>
-<!-- give the route of the javasript file: -->
-<script src="/static/gasfeed.js"></script>
 
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.2/lodash.js">
+	</script>
+	<script src="/static/mapstyles.js"></script>
+
+</head>
+<body>
+
+	<p> 
+	Your start location is "{{ start }}" and
+	your destination is "{{ end }}"
+	<!-- use hidden so the start and end box don't show up on the map browser page. -->
+	<input id="start" type="hidden" value="{{start}}"/>
+	<input id="end"   type="hidden" value="{{end}}"/>
+	</p>
+	<!-- Must add height to map or else it will not show up. -->
+	<!-- use the map id in googlemaps.js in the function initmap() -->
+	<div id="map"></div>
+
+
+
+	<!-- Google maps API -->
+
+	<script src="/static/googlemaps.js"></script>
+	<!-- give the route of the javasript file: -->
+	<script src="/static/gasfeed.js"></script>
+
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKdnL2Tl4kXtLF7chKpyA-Z5_aJhEjbeM&callback=loadDirectionsWithGasStations"></script>
+
+</body>
+</html>
+
+
+  
+<!-- 
+	var gasStation = new google.maps.latlng(37.7749, -122.4194);
+	console.log(gasStation);
+	console.log('after google call'); -->

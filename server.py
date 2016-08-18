@@ -52,18 +52,20 @@ def destination_process():
 
 
 ############################## GASFEED #############################
-# get user's current location for the gasfeed api,
+# 
 @app.route('/getgasstations', methods=['GET'])
 def current_location():
     """  """
-
+    #request for lat.,lng. for the route that the user has entered.
+      #google gives the lat.lng. for the location. 
     lat = request.args.get('lat')
     lng = request.args.get('lng')
-
+    # calling gas_stations funct. from gasfeed.py that takes in 2 params.lat,lng.
     stations = gasfeed.gas_stations(lat, lng)
-
+    # calling the funct. (cheapest_gas_stations) from gasfeed.py and passing in the values(stations).cheap_stations
+        #returns the cheapest stations' lat.,lng.
     cheap_stations = gasfeed.cheapest_gas_stations(stations)
-
+    #writting json data into python 
     return json.dumps(cheap_stations)
 
 

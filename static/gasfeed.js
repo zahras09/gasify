@@ -1,12 +1,14 @@
 // displaying the gas stations along the route
 function fetchAndDisplayGasStations(directions, map) {
   var locations = pickLocationsToSearchForGas(directions);
-  
+  // this url is talking to my server.py. for each location in locations give me the lat. and lng.
+  // locations is set equal to pickLocationsToSearchForGas funct.(below)coming from google api.
   locations.forEach(function(location) {
     var url = '/getgasstations?lat=' + location.lat + '&lng=' + location.lng;
 
+    // I THINK THIS PART IS INCOMPLETE!!!!
     $.get(url, function(cheapestStations) {
-      console.log("something");
+      console.log("something is printing from my gasfeed js");
       console.log(cheapestStations);
     });
 
@@ -24,7 +26,7 @@ function pickLocationsToSearchForGas(directions) {
 
   
   var locations = [];
-  // convert all our long steps into lat and lng
+  // convert all the long steps into lat and lng
   longSteps.forEach(function(step) {
 
     // step is the dictionary name, start_location is key,inside the key you
