@@ -1,3 +1,7 @@
+
+
+
+
 // displaying the gas stations along the route
 function fetchAndDisplayGasStations(directions, map) {
   var locations = pickLocationsToSearchForGas(directions);
@@ -7,36 +11,25 @@ function fetchAndDisplayGasStations(directions, map) {
     var url = '/getgasstations.json?lat=' + location.lat + '&lng=' + location.lng;
 
     
+    
+    // result is the result from 
+    $.get(url, fetchAndDisplayGasStations);
 
 
-
-
-    // I THINK THIS PART IS INCOMPLETE!!!!it is incomplete add the successhandler function
-    // and loop over the dictionary and get the add a marker for every lat.,lng of the dict.
-    // result.
-    $.get(url, function(result){
-
-      console.log(result);
-
-
-      
-    });
+    console.log(fetchAndDisplayGasStations);{
+      var marker = {lat: parseFloat(fetchAndDisplayGasStations['lat']) ,lng: parseFloat(fetchAndDisplayGasStations['lng']) };
+      displayGasStation(marker, map);
+    }
+      // result is a dict. returning the cheapest station (every 30,000m) along the path with all
+      // of the information assiciated with that specific staion but I want to only grab the lat.lng 
+      // which are keys inside the result dictionary:
+      // var lat = result['lat'];
+      // var lng = result['lng'];
 
   });
-
-
-
-
-  //     .load(function(cheapestStations) {
-  //     console.log("something is printing from my gasfeed js");
-  //     console.log(cheapestStations);
-  //   });
-
-
-
-
-  // });
 }
+// THIS FUNCTION IS TAKING THE LAT,LNG OF EVERY 30,000 LOCATION(A DICT) METERS 
+// AND ADDING IT TO THE LIST LOCATIONS:
 
 function pickLocationsToSearchForGas(directions) {
   // this is from google api
@@ -46,7 +39,6 @@ function pickLocationsToSearchForGas(directions) {
   var longSteps = _.filter(steps, function(step) {
     return step.distance.value >= 30000;
   });
-
   
   var locations = [];
   // convert all the long steps into lat and lng
@@ -64,7 +56,5 @@ function pickLocationsToSearchForGas(directions) {
 
     locations.push(location);
   });
-
-  // [{lat:..., lng:...}, {}, {}, {}, ...]
   return locations;
 }

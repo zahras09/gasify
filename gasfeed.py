@@ -40,7 +40,7 @@ def cheapest_gas_stations(stations):
 		prices_list.append( (station['reg_price'],stations.index(station)) )
 
 		# # to print result as dictionary:
-		# prices_list.append( {stations.index(station): station['reg_price']} )
+		prices_list.append( {stations.index(station): station['reg_price']} )
 
 		# # sorts through the list by having the price first then the index.
 		prices_list.sort()
@@ -75,19 +75,19 @@ def cheapest_gas_stations(stations):
 
 
 
-		# stations_list = []
-		# for cheap_station in cheapest_10_stations:
-		# 	#cheap station[1] return the index of the station
-		# 	index_of_station = cheap_station[0]
-		# 	# print "index_of_station:"
-		# 	# print index_of_station
-		# 	station = stations[index_of_station]
-		# 	# station is the dictionary
-		# 	stations_list.append(station)
-		# 	# print "-----------------"
-		# 	# print station
+	# stations_list = []
+	# for cheap_station in cheapest_station:
+	# 	# 	#cheap station[1] return the index of the station
+	# 	index_of_station = cheap_station[0]
+	# 	# 	# print "index_of_station:"
+	# 	# 	# print index_of_station
+	# 	station = stations[index_of_station]
+	# 	# 	# station is the dictionary
+	# 	stations_list.append(station)
+	# 	# 	# print "-----------------"
+			# print station
 
-all_gas_stations = gas_stations("37.7749","-122.4194")
+	# all_gas_stations = gas_stations("37.7749","-122.4194")
 # print cheapest_gas_stations(all_gas_stations)
 
 	# for test_station in stations_list:
@@ -98,12 +98,12 @@ all_gas_stations = gas_stations("37.7749","-122.4194")
 	# 	print "regular price:"
 	# 	print test_station['reg_price']
 
-	# for key in stations_list:
-	# 	station.get(key)
-	# 	print key
+# 	for key in stations_list:
+# 		station.get(key)
+# 		# print key
+# 		return stations_list
 
 
-# 	return stations_list
 # cheapest_gas_stations()
 
 

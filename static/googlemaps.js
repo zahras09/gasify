@@ -35,7 +35,7 @@ function calculateRoute(start, end, directionsService, directionsDisplay, map) {
     travelMode: 'DRIVING'
   }, function(directions, status) {
     if (status === 'OK') {
-      directionsDisplay.setDirections(directions);
+      directionsDisplay.setDirections(directions); 
 
       
       // After you fix gasfeed file
@@ -57,8 +57,6 @@ function displayGasStation(latlng, map=map) {
           // title: 'Gas Station'
         });
  
-
-
   new google.maps.Marker({
     position: latlng,
     title: 'gas',
@@ -81,23 +79,32 @@ function loadDirectionsWithGasStations() {
 
   // makes the map appear
   directionsDisplay.setMap(map);
+
   // in html file and grab the element with the id, start and end and pass it to these variables
   var start = document.getElementById('start').value;
   var end   = document.getElementById('end').value;
+  
+  var gasStation = {lat:37.7749, lng:-122.4194};
 
-
-  // var myImageURL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCKdnL2Tl4kXtLF7chKpyA-Z5_aJhEjbeM&callback=loadDirectionsWithGasStations"
+  //THIS MADE THE ROUTE APPEAR ON THE MAP!
+  displayGasStation(gasStation, map);
 
   // calls the function calculateRoute and passes the 5 argumets(already defined)into this funct.
   calculateRoute(start, end, directionsService, directionsDisplay, map);
 
+}
+  // var myImageURL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCKdnL2Tl4kXtLF7chKpyA-Z5_aJhEjbeM&callback=loadDirectionsWithGasStations"
+
+  // calls the function calculateRoute and passes the 5 argumets(already defined)into this funct.
+  // calculateRoute(start, end, directionsService, directionsDisplay, map);
+
 
 
   // This is the setup for adding one Gas Station to the map
-  var gasStation = {lat:37.7749, lng:-122.4194};
+//   var gasStation = {lat:37.7749, lng:-122.4194};
 
-  displayGasStation(gasStation, map);
-}
+//   displayGasStation(gasStation, map);
+// }
 
 // function findAndDisplayLocalGasStations(searchLocation, map) {
 //   var lat = searchLocation.lat;
@@ -131,10 +138,10 @@ function loadDirectionsWithGasStations() {
 
 //       // STEP FOUR: render the gas station on the map by retrieving its lat/lng from
 //       // the currentStation dictionary
-//       displayGasStation({
-//         lat: parseFloat(currentStation["lat"]),
-//         lng: parseFloat(currentStation["lng"])
-//       }, map);
+      displayGasStation({
+        lat: parseFloat(currentStation["lat"]),
+        lng: parseFloat(currentStation["lng"])
+      }, map);
 
 //     });
 

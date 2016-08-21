@@ -54,9 +54,9 @@ class Trip(db.Model):
 	 __tablename__ = "trips"
 
     trip_id = db.Column(db.Integer,autoincrement=True, primary_key=True)
-    traveler_id = db.Column(db.Integer, autoincrement=True, foreign_key=True)
+    traveler_id = db.Column(db.Integer, foreign_key=True)
     # this would be a name in addition to lat.,lng.?
-    start_point = db.Column(db.Integer, nullable=True)
+    latstart_point = db.Column(db.Integer, nullable=True)
     # this would be a name in addition to lat.,lng.?
     destination = db.Column(db.Integer, nullable=True)
 
@@ -74,10 +74,10 @@ class GasStation(db.Model):
 	 __tablename__ = "stations"
 
     gas_station_id = db.Column(db.Integer, primary_key=True,nullable=True)
-    traveler_id = db.Column(db.Integer, autoincrement=True, foreign_key=True)
+    traveler_id = db.Column(db.Integer, foreign_key=True)
     price = db.Column(db.Integer, nullable=True)
     # this will be lat.lng, do I also include a name?location?
-    favorite_gas_station = db.Column(db.Integer, nullable=False)
+    # favorite_gas_station = db.Column(db.Integer, nullable=False)
 
 
     def __repr__(self):
