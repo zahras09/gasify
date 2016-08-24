@@ -3,24 +3,54 @@
 import gasfeed
 import os
 import json
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, render_template, request, redirect, jsonify, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
 
-app = Flask(__name__)
 
+app = Flask(__name__)
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "ABC"
+from model import connect_to_db, db, User, Trip, GasStation
+
 
 # url = "https://maps.googleapis.com/maps/api/js?key=" + GOOGLE_API_KEY + "&callback=initMap"
 # consumer_secret=os.environ
 
-# display homepage
-@app.route('/')
+# DISPLAY HOMEPAGE AND HAVE THE USER LOGIN:
+@app.route('/', methods=['GET'])
 def index():
     """Homepage"""
     return render_template("homepage.html")
 
 
+
+# LOGIN PROCESS:
+@app.route('/log_in', methods=['POST'])
+def login_process():
+    """Process login."""
+
+    # Get form variables
+    my_email = request.form.get("email")
+    password = request.form.get("password")
+
+    print "my email"
+    print my_email
+
+    user = User.query.filter_by(email=my_email).first()
+    print "user"
+    print user
+
+    if not user:
+        flash("User not found!")
+        return redirect("/")
+
+    if user.password != password:
+        flash("Incorrect password")
+        return redirect("/")
+    else:
+        # session is a dict. and you want to set the key user id to user.user_id.
+        session['user_id'] = user.user_id
+        return redirect('/destination-form')
 
 # once user clicks submit route them to /destination-form page and display the form
 @app.route('/destination-form', methods=['GET'])
@@ -49,6 +79,52 @@ def destination_process():
     # map_display is my jinja, start" and end variables are from destination.html
     return render_template("map_display.html", start=user_entered_start_point,
                                                end=user_entered_destination)
+
+
+
+
+
+
+# SHOW USER THE FORM IN ORDER TO REGISTER:
+# @app.route('/log_in', methods=['POST'])
+# def register_process():
+#     """Process registration."""
+
+#     # Get form variables
+#     email = request.form["email"]
+#     password = request.form["password"]
+
+#     new_user = User(email=email, password=password)
+
+#     db.session.add(new_user)
+#     db.session.commit()
+
+#     flash("User %s added." % email)
+#     return redirect("/users/%s" % new_user.user_id)
+
+
+
+
+@app.route('/logout')
+def logout():
+    """Log out."""
+
+    del session["user_id"]
+    flash("Logged Out.")
+    return redirect("/")
+
+# IS THIS ROUTE NECESSARY??????
+# @app.route("/users/<int:user_id>")
+# def user_detail(user_id):
+#     """Show info about user."""
+
+#     user = User.query.get(user_id)
+#     return render_template("user.html", user=user)
+
+
+
+
+
 
 
 ############################## GASFEED #############################
@@ -95,9 +171,9 @@ if __name__ == "__main__":
     # that we invoke the DebugToolbarExtension
     app.debug = True
 
-    # connect_to_db(app)
+    connect_to_db(app)
 
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     app.run(host='0.0.0.0', port=5000, debug=True)

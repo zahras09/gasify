@@ -1,90 +1,99 @@
 
-# Google maps API key:
-AIzaSyCKdnL2Tl4kXtLF7chKpyA-Z5_aJhEjbeM
+# # Google maps API key:
+# AIzaSyCKdnL2Tl4kXtLF7chKpyA-Z5_aJhEjbeM
 
 
-# Gasfeed API:
-Your Api Key: c2pmuvu4mv 
+# # Gasfeed API:
+# Your Api Key: c2pmuvu4mv 
 
-Once your app is complete and released you may submit your app to our 3rd party showcase section.
-3rd Party Apps 
+# Once your app is complete and released you may submit your app to our 3rd party showcase section.
+# 3rd Party Apps 
 
-Please remember we have two different development environments which uses different domains. 
+# Please remember we have two different development environments which uses different domains. 
 
-Development
-Domain: devapi.mygasfeed.com
-Api key: rfej9napna (All developers) 
+# Development
+# Domain: devapi.mygasfeed.com
+# Api key: rfej9napna (All developers) 
 
-Production
-Domain: api.mygasfeed.com
-Api key: c2pmuvu4mv 
+# Production
+# Domain: api.mygasfeed.com
+# Api key: c2pmuvu4mv 
 
 #---------------------------------------------------------------------#
 
-
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 
+class User(db.Model):
+    """Traveler using the website."""
+    __tablename__ = "users"
 
-class Traveler(db.Model):
-	"""Traveler using the website."""
+    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    email = db.Column(db.String)
+    password = db.Column(db.String)
 
-	 __tablename__ = "travelers"
 
-    traveler_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    miles_per_gallon = db.Column(db.Integer, nullable=True)
-    tank_capacity = db.Column(db.Integer, nullable=True)
+    # miles_per_gallon = db.Column(db.Integer, nullable=True)
+    # tank_capacity = db.Column(db.Integer, nullable=True)
     # tank_capacity = db.Column(db.String(64), nullable=True)
 
     # what happens if __repr__ is not here?
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Traveler traveler_id=%s miles_per_gallon=%s tank_capacity%s>" % (self.traveler_id,
-                                               self.miles_per_gallon, self.tank_capacity)
+        return "<User user_id=%s email=%s password%s>" % (self.user_id,
+                                                                  self.email, 
+                                                                  self.password)
 
 
 
 
 class Trip(db.Model):
-	"""Saved trips info. including the start point and destination."""
+    """Saved trips info. including the start point and destination."""
 
-	 __tablename__ = "trips"
+    __tablename__ = "trips"
 
     trip_id = db.Column(db.Integer,autoincrement=True, primary_key=True)
-    traveler_id = db.Column(db.Integer, foreign_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     # this would be a name in addition to lat.,lng.?
-    latstart_point = db.Column(db.Integer, nullable=True)
-    # this would be a name in addition to lat.,lng.?
-    destination = db.Column(db.Integer, nullable=True)
+    start = db.Column(db.String, nullable=True)
+    end = db.Column(db.String, nullable=True)
+    favorite = db.Column(db.Boolean)
+
+    user = db.relationship("User",
+                            backref=db.backref("trips"))
+
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-    return "<Trip traveler_id=%s start_point=%s destination%s>" % (self.traveler_id,
-                                               self.start_point, self.destination)
-
+        return "<Trip trip_id=%s start=%s end%s>" % (self.user_id,
+                                                           self.start, 
+                                                           self.end)
 
 
 class GasStation(db.Model):
-	"""Gas stations along the path of travel."""
-
-	 __tablename__ = "stations"
+    """Gas stations along the path of travel."""
+    __tablename__ = "gasstations"
 
     gas_station_id = db.Column(db.Integer, primary_key=True,nullable=True)
-    traveler_id = db.Column(db.Integer, foreign_key=True)
-    price = db.Column(db.Integer, nullable=True)
-    # this will be lat.lng, do I also include a name?location?
-    # favorite_gas_station = db.Column(db.Integer, nullable=False)
+    trip_id = db.Column(db.Integer, db.ForeignKey('trips.trip_id'))
+    location = db.Column(db.String)
+    name = db.Column(db.String)
+
+    trip = db.relationship("Trip",
+                            backref=db.backref("gasstations"))
+
 
 
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-    return "<Trip traveler_id=%s start_point=%s destination%s>" % (self.traveler_id,
-                                               self.start_point, self.destination)
+        return "<GasStation gas_station_id=%s name=%s >" % (self.gas_station_id,
+                                                                            self.name)
 
 
 
@@ -93,7 +102,8 @@ class GasStation(db.Model):
 def connect_to_db(app):
     """Connect the database to Flask app."""
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///bears'
+    ####### CHANGE THE ROUTE ONCE YOU HAVE IT FIGURED OUT!!!!!!!!################
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///gasify'
     db.app = app
     db.init_app(app)
 
