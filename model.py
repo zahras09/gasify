@@ -6,11 +6,6 @@
 # # Gasfeed API:
 # Your Api Key: c2pmuvu4mv 
 
-# Once your app is complete and released you may submit your app to our 3rd party showcase section.
-# 3rd Party Apps 
-
-# Please remember we have two different development environments which uses different domains. 
-
 # Development
 # Domain: devapi.mygasfeed.com
 # Api key: rfej9napna (All developers) 
@@ -102,7 +97,7 @@ class GasStation(db.Model):
 def connect_to_db(app):
     """Connect the database to Flask app."""
 
-    ####### CHANGE THE ROUTE ONCE YOU HAVE IT FIGURED OUT!!!!!!!!################
+    ####### WHAT IS THE PURPOSE OF APP.CONFIG???!!!!!!!!################
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///gasify'
     db.app = app
     db.init_app(app)

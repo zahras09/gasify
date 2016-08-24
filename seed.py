@@ -32,7 +32,6 @@ def load_user():
 
 #     print "Start"
 
-#     enumerate(open("")):
 
 #         start = Start(user_id=user_id)
 
@@ -49,7 +48,6 @@ def load_user():
 
 #     print "End"
 
-#     enumerate(open("")):
         
 
 #         start_id = int(start_id)

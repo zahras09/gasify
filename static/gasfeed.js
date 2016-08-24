@@ -15,6 +15,11 @@ function fetchAndDisplayGasStations(directions, map) {
     $.get(url, function(cheapest_station_json) {
       // station_json is the json returned from python that represents a gas station
       var cheapest_station = JSON.parse(cheapest_station_json);
+
+      // ##################ables me to check some funct.in browser.###############################
+      // debugger;
+      // console.log(cheapest_station);##############################################
+
       // call displayGasStation with the station AND the map!!!
       displayGasStation(cheapest_station, map);
     });
@@ -57,6 +62,7 @@ function pickLocationsToSearchForGas(directions) {
   // - Try things, see what looks nice!
   // *** remember, the lat and lng keys are functions
   // *** just like they are below!
+  // - below is an example of using EVERY lat/lng from overview_path
 
   // directions.routes[0].overview_path.forEach(function(location) {
   //   var lat = location.lat();
@@ -96,3 +102,6 @@ function pickLocationsToSearchForGas(directions) {
 
   return locations;
 }
+
+
+

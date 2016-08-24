@@ -38,7 +38,6 @@ function calculateRoute(start, end, directionsService, directionsDisplay, map) {
       directionsDisplay.setDirections(directions); 
 
       
-      // After you fix gasfeed file
       fetchAndDisplayGasStations(directions, map);
     
 
@@ -63,14 +62,12 @@ function loadDirectionsWithGasStations() {
   // makes the map appear
   directionsDisplay.setMap(map);
 
-  // in html file and grab the element with the id, start and end and pass it to these variables
+  // in html file grab the element with the id, start and end and pass it to these variables
   var start = document.getElementById('start').value;
   var end   = document.getElementById('end').value;
   
   // var gasStation = {lat:37.7749, lng:-122.4194};
 
-  //THIS MADE THE ROUTE APPEAR ON THE MAP!
-  // displayGasStation(gasStation, map);
 
   // calls the function calculateRoute and passes the 5 argumets(already defined)into this funct.
   calculateRoute(start, end, directionsService, directionsDisplay, map);
