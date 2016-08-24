@@ -135,7 +135,6 @@ def current_location():
     #request for lat.,lng. for the route that the user has entered.
       #google gives the lat.lng. for the location.
 
-    # CALL API 
     lat = request.args.get('lat') #If you want to retrieve GET (query string) data:
     lng = request.args.get('lng')
 

@@ -64,9 +64,9 @@ def cheapest_gas_stations(stations):
 	
 	print "This is the price list!!!", prices_list
 
-	cheapest_station_price_index = prices_list[0]
+	cheapest_station_tuple = prices_list[0]
 
-	cheapest_station_index = cheapest_station_price_index[1]
+	cheapest_station_index = cheapest_station_tuple[1]
 	cheapest_station = stations[cheapest_station_index]
 
 	return cheapest_station

@@ -49,23 +49,6 @@ function calculateRoute(start, end, directionsService, directionsDisplay, map) {
 }
 
 
-function displayGasStation(latlng, map=map) {
-  
-  var marker = new google.maps.Marker({
-          position: latlng,
-          map: map
-          // title: 'Gas Station'
-        });
- 
-  new google.maps.Marker({
-    position: latlng,
-    title: 'gas',
-    animation: google.maps.Animation.DROP,
-    map: map
-  });
-}
-
-
 // this funct. is getting directions and rendering the direction
 function loadDirectionsWithGasStations() {
   //constructing a new object (new google.maps)
@@ -84,10 +67,10 @@ function loadDirectionsWithGasStations() {
   var start = document.getElementById('start').value;
   var end   = document.getElementById('end').value;
   
-  var gasStation = {lat:37.7749, lng:-122.4194};
+  // var gasStation = {lat:37.7749, lng:-122.4194};
 
   //THIS MADE THE ROUTE APPEAR ON THE MAP!
-  displayGasStation(gasStation, map);
+  // displayGasStation(gasStation, map);
 
   // calls the function calculateRoute and passes the 5 argumets(already defined)into this funct.
   calculateRoute(start, end, directionsService, directionsDisplay, map);
@@ -138,10 +121,10 @@ function loadDirectionsWithGasStations() {
 
 //       // STEP FOUR: render the gas station on the map by retrieving its lat/lng from
 //       // the currentStation dictionary
-      displayGasStation({
-        lat: parseFloat(currentStation["lat"]),
-        lng: parseFloat(currentStation["lng"])
-      }, map);
+      // displayGasStation({
+      //   lat: parseFloat(currentStation["lat"]),
+      //   lng: parseFloat(currentStation["lng"])
+      // }, map);
 
 //     });
 

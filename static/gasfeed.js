@@ -10,28 +10,66 @@ function fetchAndDisplayGasStations(directions, map) {
   locations.forEach(function(location) {
     var url = '/getgasstations.json?lat=' + location.lat + '&lng=' + location.lng;
 
-    
-    
-    // result is the result from 
-    $.get(url, fetchAndDisplayGasStations);
-
-
-    console.log(fetchAndDisplayGasStations);{
-      var marker = {lat: parseFloat(fetchAndDisplayGasStations['lat']) ,lng: parseFloat(fetchAndDisplayGasStations['lng']) };
-      displayGasStation(marker, map);
-    }
-      // result is a dict. returning the cheapest station (every 30,000m) along the path with all
-      // of the information assiciated with that specific staion but I want to only grab the lat.lng 
-      // which are keys inside the result dictionary:
-      // var lat = result['lat'];
-      // var lng = result['lng'];
-
+    // ask the server for the cheapest station,
+    // the server returns that cheapest station into the anonymous function below
+    $.get(url, function(cheapest_station_json) {
+      // station_json is the json returned from python that represents a gas station
+      var cheapest_station = JSON.parse(cheapest_station_json);
+      // call displayGasStation with the station AND the map!!!
+      displayGasStation(cheapest_station, map);
+    });
   });
 }
+
+
+function displayGasStation(station, map) {
+  
+  var latlng = {
+    lat: parseFloat(station['lat']),
+    lng: parseFloat(station['lng'])
+  };
+  
+  var marker = new google.maps.Marker({
+          position: latlng,
+          map: map
+          // title: 'Gas Station'
+        });
+ 
+  new google.maps.Marker({
+    position: latlng,
+    title: 'gas',
+    animation: google.maps.Animation.DROP,
+    map: map
+  });
+}
+
+
+
 // THIS FUNCTION IS TAKING THE LAT,LNG OF EVERY 30,000 LOCATION(A DICT) METERS 
 // AND ADDING IT TO THE LIST LOCATIONS:
-
 function pickLocationsToSearchForGas(directions) {
+  var locations = [];
+
+  // TODO: directions.routes[0].overview_path
+  // which is a large array of lots of lat/lng points
+  // Use it to pick locations!  
+  // - Maybe choose every 10th point? Maybe every 20th?
+  // - Try things, see what looks nice!
+  // *** remember, the lat and lng keys are functions
+  // *** just like they are below!
+
+  // directions.routes[0].overview_path.forEach(function(location) {
+  //   var lat = location.lat();
+  //   var lng = location.lng();
+
+  //   var latlng = {
+  //     lat: lat,
+  //     lng: lng
+  //   };
+
+  //   location.push(latlng);
+  // });
+
   // this is from google api
   var steps = directions.routes[0].legs[0].steps;
 
@@ -40,7 +78,6 @@ function pickLocationsToSearchForGas(directions) {
     return step.distance.value >= 30000;
   });
   
-  var locations = [];
   // convert all the long steps into lat and lng
   longSteps.forEach(function(step) {
 
@@ -56,5 +93,6 @@ function pickLocationsToSearchForGas(directions) {
 
     locations.push(location);
   });
+
   return locations;
 }
