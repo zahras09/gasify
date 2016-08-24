@@ -18,41 +18,57 @@ def gas_stations(lat,lng):
 
 
 # Tested query : http://api.mygasfeed.com/stations/radius/37.7749/-122.4194/2/reg/distance/c2pmuvu4mv.json
+
+# parameter: stations
+# - stations is a list of dictionaries.
+# - each dictionary represents one gas station
+# - each dictionary looks like this:
+#          {
+#             "country": "Canada",
+#             "reg_price": "3.65",
+#             "mid_price": "3.65",
+#             "pre_price": "3.65",
+#             "diesel_price": "3.65",
+#             "address": "3885, Boulevard Saint-Rose",
+#             "diesel": "0",
+#             "id": "33862",
+#             "lat": "45.492367",
+#             "lng": "-73.710915",
+#             "station": "Shell",
+#             "region": "Quebec",
+#             "city": "Saint-Laurent",
+#             "reg_date": "3 hours agp",
+#             "mid_date": "3 hours agp",
+#             "pre_date": "3 hours agp",
+#             "diesel_date": "3 hours agp",
+#             "distance": "1.9km"
+#         }
 def cheapest_gas_stations(stations):
 
-	# print stations
-	# cheapest_stations = []
-
-
-####### find the cheapest stations and put them into `cheapest_stations`
-
+    ####### find the cheapest stations and put them into `cheapest_stations`
 
 	# return cheapest_stations
 
 
 	# # create an empty list:
 	prices_list = []
+
 	# # iterate over every station in the whole list of stations:
 	for station in stations:
 		# add the price and and index of every station in stations list to the
 	    # price_list.
-
 		prices_list.append( (station['reg_price'],stations.index(station)) )
 
-		# # to print result as dictionary:
-		prices_list.append( {stations.index(station): station['reg_price']} )
+	# sort the list by price (having a tuple with the price first then the index)
+	prices_list.sort()
+	
+	print "This is the price list!!!", prices_list
 
-		# # sorts through the list by having the price first then the index.
-		prices_list.sort()
-		# # print "Thisnis  price list!!!", prices_list
-
-		# # passes the value of the last 10 cheapest gas stations to the variable.
 	cheapest_station_price_index = prices_list[0]
 
 	cheapest_station_index = cheapest_station_price_index[1]
 	cheapest_station = stations[cheapest_station_index]
-	# print "cheapest_10_stations:"
-	# print cheapest_10_stations
+
 	return cheapest_station
 
 
