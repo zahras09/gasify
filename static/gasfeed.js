@@ -54,6 +54,7 @@ function displayGasStation(station, map) {
 // AND ADDING IT TO THE LIST LOCATIONS:
 function pickLocationsToSearchForGas(directions) {
   var locations = [];
+  debugger;
 
   // TODO: directions.routes[0].overview_path
   // which is a large array of lots of lat/lng points
@@ -76,31 +77,50 @@ function pickLocationsToSearchForGas(directions) {
   //   location.push(latlng);
   // });
 
-  // this is from google api
-  var steps = directions.routes[0].legs[0].steps;
+  // // this is from google api
+  // var steps = directions.routes[0].legs[0].steps;
 
-  // keep only the steps that are longer than 30,000 meters
-  var longSteps = _.filter(steps, function(step) {
-    return step.distance.value >= 30000;
-  });
+  // // keep only the steps that are longer than 30,000 meters
+  // var longSteps = _.filter(steps, function(step) {
+  //   return step.distance.value >= 30000;
+  // });
   
-  // convert all the long steps into lat and lng
-  longSteps.forEach(function(step) {
+  // // convert all the long steps into lat and lng
+  // longSteps.forEach(function(step) {
 
-    // step is the dictionary name, start_location is key,inside the key you
-    // have another dict. with key 'lat' that has a value that is a function
-    var lat = step.start_location.lat();
-    var lng = step.start_location.lng();
+  //   // step is the dictionary name, start_location is key,inside the key you
+  //   // have another dict. with key 'lat' that has a value that is a function
+  //   var lat = step.start_location.lat();
+  //   var lng = step.start_location.lng();
 
+  //   var location = {
+  //     lat: lat,
+  //     lng: lng
+  //   };
+
+  //   locations.push(location);
+  // });
+
+  // return locations;
+  var numSteps = directions.routes[0].overview_path.length;
+  var interval = Math.floor(numSteps / 15);
+  
+  for (var i = 0; i < numSteps; i = i + interval) {
+    console.log(i);
     var location = {
-      lat: lat,
-      lng: lng
+      lat: directions.routes[0].overview_path[i].lat(),
+      lng: directions.routes[0].overview_path[i].lng()
     };
-
+    // add location to list of locations
     locations.push(location);
-  });
+    
+    console.log(location);
 
+  } //end for
+  console.log("I'm here!");
   return locations;
+
+
 }
 
 

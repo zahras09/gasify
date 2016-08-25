@@ -33,22 +33,26 @@
 	<input id="end"   type="hidden" value="{{end}}"/>
 	<button id="FavBtn" type="button">Favorite Trip </button>
 	<script>
-	// this funct.is for event listener funct.for the param you can either have (e) or (evt)
+	// this funct.is for event listener funct.(for the param you can either have (e) or (evt))
+	// it's calling saveFavoriteTrip funct.
 		function handleFavoriteClick(evt){
 			console.log('AJAX starting');
 			saveFavoriteTrip();
-		}
-
-		function handleBackFromServer(resp){
+		
+		// this funct. is adding an alert and changing the button from one condition to another.		function handleBackFromServer(resp){
 			alert('Added to favorite trips!');
 			button.prop('disabled', true);
 			button.html('Favorited');
 		}
-
+		// this funct.is taking start and end value passing it as a value to the variable,
+		// the values get passed as a key to postParams dict. this info gets packaged and
+		// sent to the server route process-favorite, does what it needs to do there and comes
+		// back with some info and handleBackFromServer funct. gets called.
 		function saveFavoriteTrip(){
 			// .val returns the value in input element.this is using jquery.
 			var start = $("#start").val();
 			var end = $("#end").val();
+			// you want to send info back either as data or as an object.postParams is an obj.dict.
 			var postParams = {'start':start,
 							  'end':end};
 			// go to process-favorite route with postParams data and once the server returns info. run
