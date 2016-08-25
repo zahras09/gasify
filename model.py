@@ -56,7 +56,7 @@ class Trip(db.Model):
     # this would be a name in addition to lat.,lng.?
     start = db.Column(db.String, nullable=True)
     end = db.Column(db.String, nullable=True)
-    favorite = db.Column(db.Boolean)
+
 
     user = db.relationship("User",
                             backref=db.backref("trips"))

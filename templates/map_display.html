@@ -31,7 +31,37 @@
 	<!-- use hidden so the start and end box don't show up on the map browser page. -->
 	<input id="start" type="hidden" value="{{start}}"/>
 	<input id="end"   type="hidden" value="{{end}}"/>
-	<button type="button" onclick="alert('This route has been added to your favorite trips!')">       Favorite Trip </button>
+	<button id="FavBtn" type="button">Favorite Trip </button>
+	<script>
+	// this funct.is for event listener funct.for the param you can either have (e) or (evt)
+		function handleFavoriteClick(evt){
+			console.log('AJAX starting');
+			saveFavoriteTrip();
+		}
+
+		function handleBackFromServer(resp){
+			alert('Added to favorite trips!');
+			button.prop('disabled', true);
+			button.html('Favorited');
+		}
+
+		function saveFavoriteTrip(){
+			// .val returns the value in input element.this is using jquery.
+			var start = $("#start").val();
+			var end = $("#end").val();
+			var postParams = {'start':start,
+							  'end':end};
+			// go to process-favorite route with postParams data and once the server returns info. run
+			// handleBackFromServer funct.
+			// the method is .post instead of .get b/c the there will be a change.
+			$.post('/process-favorite', postParams,  handleBackFromServer);
+
+		}
+		// this is similar to getElementById but in this case you have to use jquery.
+	    var button = $("#FavBtn");
+	    button.on("click", handleFavoriteClick);
+
+	</script>
 	</p>
 	
 	<!-- use the map id in googlemaps.js in the function initmap() -->

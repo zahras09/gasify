@@ -79,6 +79,27 @@ def destination_process():
     # map_display is my jinja, start" and end variables are from destination.html
     return render_template("map_display.html", start=user_entered_start_point,
                                                end=user_entered_destination)
+@app.route('/process-favorite', methods=['POST'])
+def process_favorite():
+    user_id = session['user_id']
+    start_point = request.form.get("start") # None if not there.
+    destination = request.form.get("end")
+    # fav_trip is an instance of the Trip class which will corrospond to a row in our table.
+    # in the end column put the value of variable destination and so on ...
+    fav_trip = Trip(user_id=user_id, start=start_point, end=destination)
+    # this makes the corrospondence between the instance and the row
+    db.session.add(fav_trip)
+    db.session.commit()
+    # figure out which trip 
+    # figure out whcih user
+    # make a trip object
+    # add the trip to the database
+    # commit to database
+    # jsonify turns data back to a string
+    
+    # we must have something returned.
+    return 'success!'
+
 
 
 
