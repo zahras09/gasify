@@ -35,7 +35,7 @@ function calculateRoute(start, end, directionsService, directionsDisplay, map) {
     travelMode: 'DRIVING'
   }, function(directions, status) {
     if (status === 'OK') {
-      directionsDisplay.setDirections(directions); 
+      directionsDisplay.setDirections(directions);
 
       
       fetchAndDisplayGasStations(directions, map);

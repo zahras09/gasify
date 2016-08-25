@@ -7,6 +7,9 @@ function fetchAndDisplayGasStations(directions, map) {
   var locations = pickLocationsToSearchForGas(directions);
   // this url is talking to my server.py. for each location in locations give me the lat. and lng.
   // locations is set equal to pickLocationsToSearchForGas funct.(below)coming from google api.
+  var infoWindow = new google.maps.InfoWindow({
+      width: 150
+  });
   locations.forEach(function(location) {
     var url = '/getgasstations.json?lat=' + location.lat + '&lng=' + location.lng;
 
@@ -16,45 +19,54 @@ function fetchAndDisplayGasStations(directions, map) {
       // station_json is the json returned from python that represents a gas station
       var cheapest_station = JSON.parse(cheapest_station_json);
 
-      // ##################ables me to check some funct.in browser.###############################
-      // debugger;
-      // console.log(cheapest_station);##############################################
 
       // call displayGasStation with the station AND the map!!!
-      displayGasStation(cheapest_station, map);
+      displayGasStation(cheapest_station, map, infoWindow);
     });
   });
 }
 
 
-function displayGasStation(station, map) {
+
+
+function displayGasStation(station, map, infoWindow) {
+  // variable for the content of the Info.
+
   
   var latlng = {
     lat: parseFloat(station['lat']),
     lng: parseFloat(station['lng'])
   };
   
-  var marker = new google.maps.Marker({
-          position: latlng,
-          map: map
-          // title: 'Gas Station'
-        });
- 
-  new google.maps.Marker({
+  var marker =  new google.maps.Marker({
     position: latlng,
     title: 'gas',
     animation: google.maps.Animation.DROP,
     map: map
   });
+  html = ('Station: ' + station['station'] + ' Price: ' + station['reg_price']);
+
+          // Inside the loop we call bindInfoWindow passing it the marker,
+          // map, infoWindow and contentString
+  bindInfoWindow(marker, map, infoWindow, html);
+      
 }
 
 
+  function bindInfoWindow(marker, map, infoWindow, html) {
+
+      google.maps.event.addListener(marker, 'click', function () {
+          infoWindow.close();
+          infoWindow.setContent(html);
+          infoWindow.open(map, marker);
+      });
+  }
 
 // THIS FUNCTION IS TAKING THE LAT,LNG OF EVERY 30,000 LOCATION(A DICT) METERS 
 // AND ADDING IT TO THE LIST LOCATIONS:
 function pickLocationsToSearchForGas(directions) {
   var locations = [];
-  debugger;
+  // debugger;
 
   // TODO: directions.routes[0].overview_path
   // which is a large array of lots of lat/lng points
@@ -103,8 +115,9 @@ function pickLocationsToSearchForGas(directions) {
 
   // return locations;
   var numSteps = directions.routes[0].overview_path.length;
-  var interval = Math.floor(numSteps / 15);
-  
+  // Math.floor returns a whole number vs. a float.
+  var interval = Math.floor(numSteps / 10);
+  // set a forloop and iterate over intervals
   for (var i = 0; i < numSteps; i = i + interval) {
     console.log(i);
     var location = {
@@ -117,7 +130,6 @@ function pickLocationsToSearchForGas(directions) {
     console.log(location);
 
   } //end for
-  console.log("I'm here!");
   return locations;
 
 
