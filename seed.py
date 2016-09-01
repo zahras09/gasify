@@ -63,21 +63,21 @@ def load_user():
 #     db.session.commit()
 
 
-# def load_trip():
-#     """Load trip id into database."""
+def load_trip():
+    """Load trip id into database."""
 
-#     print "Trip"
-#         user_id = user_id
-#         start_id = start_id
-#         end_id = end_id
+    print "Trip"
+        user_id = user_id
+        start_id = start_id
+        end_id = end_id
 
-#         trip = Trip(user_id=user_id,
-#                     start_id=start_id,
-#                     end_id=end_id)
+        trip = Trip(user_id=user_id,
+                    start_id=start_id,
+                    end_id=end_id)
 
 
-#         db.session.add()
-#     db.session.commit()
+        db.session.add()
+    db.session.commit()
 
 
 

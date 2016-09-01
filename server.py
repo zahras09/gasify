@@ -99,7 +99,7 @@ def current_location():
 #Using SQLAlchemy to save the data to postgreSQL data
 @app.route('/process-favorite', methods=['POST'])
 def process_favorite():
-        """Save trip to favorite trip database"""
+    """Save trip to favorite trip database"""
     user_id = session['user_id']
     start_point = request.form.get("start") # None if not there.
     destination = request.form.get("end")

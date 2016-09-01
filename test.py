@@ -115,8 +115,7 @@ class FlaskTestsLoggedIn(TestCase):
         # result = self.client.get('/destination-process')
         self.assertIn("start", result.data)
 
-#Are we testing two thigs here? if user logged out successfully and if not logged in
-#they are not given access to any of the pages.
+
 class FlaskTestsLoggedOut(TestCase):
     """Flask tests with user logged in to session."""
 
@@ -126,12 +125,20 @@ class FlaskTestsLoggedOut(TestCase):
         app.config['TESTING'] = True
         self.client = app.test_client()
 
+        with self.client as c:
+            with c.session_transaction() as sess:
+                sess['user_id'] = 1
+
+    def test_log_out(self):
+
+        result = self.client.get("/logout", follow_redirects=True)
+        self.assertIn("Login", result.data)
+
     def test_important_page(self):
         """Test that user can't see important page when logged out."""
 
-        result = self.client.get("/destination-process", follow_redirects=True)
-        # self.assertNotIn("You are a valued user", result.data)
-        self.assertIn("Login", result.data)
+        result = self.client.get("/", follow_redirects=True)
+        self.assertIn("Email", result.data)
 
 
 
