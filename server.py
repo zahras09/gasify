@@ -13,9 +13,6 @@ app.secret_key = "ABC"
 from model import connect_to_db, db, User, Trip, GasStation
 
 
-# url = "https://maps.googleapis.com/maps/api/js?key=" + GOOGLE_API_KEY + "&callback=initMap"
-# consumer_secret=os.environ
-
 # DISPLAY HOMEPAGE AND HAVE THE USER LOGIN:
 @app.route('/', methods=['GET'])
 def index():
@@ -35,7 +32,7 @@ def login_process():
 
     print "my email"
     print my_email
-
+    # .first returns only the one matched email.
     user = User.query.filter_by(email=my_email).first()
     print "user"
     print user
@@ -60,12 +57,6 @@ def destination_form():
     return render_template('destination.html')
 
 
-# when form is filled take user to /destination-process
-@app.route('/destination-form')
-def process_destination_form():
-    return redirect("/destination-process")
-
-
 
 # when user arrives at /destination-process display map_display.html
 @app.route('/destination-process', methods=['POST'])
@@ -79,73 +70,6 @@ def destination_process():
     # map_display is my jinja, start" and end variables are from destination.html
     return render_template("map_display.html", start=user_entered_start_point,
                                                end=user_entered_destination)
-@app.route('/process-favorite', methods=['POST'])
-def process_favorite():
-    user_id = session['user_id']
-    start_point = request.form.get("start") # None if not there.
-    destination = request.form.get("end")
-    # fav_trip is an instance of the Trip class which will corrospond to a row in our table.
-    # in the end column put the value of variable destination and so on ...
-    fav_trip = Trip(user_id=user_id, start=start_point, end=destination)
-    # this makes the corrospondence between the instance and the row
-    db.session.add(fav_trip)
-    db.session.commit()
-    # figure out which trip 
-    # figure out whcih user
-    # make a trip object
-    # add the trip to the database
-    # commit to database
-    # jsonify turns data back to a string
-    
-    # we must have something returned.
-    return 'success!'
-
-
-
-
-
-
-
-# SHOW USER THE FORM IN ORDER TO REGISTER:
-# @app.route('/log_in', methods=['POST'])
-# def register_process():
-#     """Process registration."""
-
-#     # Get form variables
-#     email = request.form["email"]
-#     password = request.form["password"]
-
-#     new_user = User(email=email, password=password)
-
-#     db.session.add(new_user)
-#     db.session.commit()
-
-#     flash("User %s added." % email)
-#     return redirect("/users/%s" % new_user.user_id)
-
-
-
-
-@app.route('/logout')
-def logout():
-    """Log out."""
-
-    del session["user_id"]
-    flash("Logged Out.")
-    return redirect("/")
-
-# IS THIS ROUTE NECESSARY??????
-# @app.route("/users/<int:user_id>")
-# def user_detail(user_id):
-#     """Show info about user."""
-
-#     user = User.query.get(user_id)
-#     return render_template("user.html", user=user)
-
-
-
-
-
 
 
 ############################## GASFEED #############################
@@ -172,15 +96,40 @@ def current_location():
     return json.dumps(cheap_stations)
 
 
+#Using SQLAlchemy to save the data to postgreSQL data
+@app.route('/process-favorite', methods=['POST'])
+def process_favorite():
+        """Save trip to favorite trip database"""
+    user_id = session['user_id']
+    start_point = request.form.get("start") # None if not there.
+    destination = request.form.get("end")
+    # fav_trip is an instance of the Trip class which will corrospond to a row in our table.
+    
+    # in the end column put the value of variable destination and so on ...
+    fav_trip = Trip(user_id=user_id, start=start_point, end=destination)
+    # this makes the corrospondence between the instance and the row
+    db.session.add(fav_trip)
+    db.session.commit()
+    # figure out which trip 
+    # figure out whcih user
+    # make a trip object
+    # add the trip to the database
+    # commit to database
+    # jsonify turns data back to a string
+
+    # we must have something returned.
+    return 'success!'
 
 
+@app.route('/logout', methods=['GET'])
+def logout():
+    """Log out."""
 
-# @app.route('/googlemap', methods=['POST'])
-# def map_image():
-#     """Map user's route."""
-#     # location = request.form.get("destination")
-#     # print "test"
-#     return render_template("googlemaps.html")
+    print session
+    print "session"
+    del session["user_id"]
+    flash("Logged out!")
+    return redirect('/')
 
 
 

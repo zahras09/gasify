@@ -5,11 +5,12 @@
 // displaying the gas stations along the route
 function fetchAndDisplayGasStations(directions, map) {
   var locations = pickLocationsToSearchForGas(directions);
-  // this url is talking to my server.py. for each location in locations give me the lat. and lng.
-  // locations is set equal to pickLocationsToSearchForGas funct.(below)coming from google api.
+  // added the infowindow variable(gets called in bindInfoWindow funct.)
   var infoWindow = new google.maps.InfoWindow({
       width: 150
   });
+  // this url is talking to my server.py. for each location in locations give me the lat. and lng.
+  // locations is set equal to pickLocationsToSearchForGas funct.(below)coming from google api.
   locations.forEach(function(location) {
     var url = '/getgasstations.json?lat=' + location.lat + '&lng=' + location.lng;
 

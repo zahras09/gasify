@@ -18,6 +18,8 @@
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+# from flask.ext.sqlalchemy import SQLAlchemy
+
 
 db = SQLAlchemy()
 
@@ -89,16 +91,32 @@ class GasStation(db.Model):
 
         return "<GasStation gas_station_id=%s name=%s >" % (self.gas_station_id,
                                                                             self.name)
+################### TEST DATA ####################################
+def example_data():
+    """Create some sample data."""
 
+    # In case this is run more than once, empty out existing data
+    User.query.delete()
+    Trip.query.delete()
+    GasStation.query.delete()
+
+    user = User(email="zahra@gmail.com", password="hackbright")
+
+    trip = Trip(start="san francisco", end="los angeles")
+
+    gasstation = GasStation(location="san francisco", name="arco")
+
+    db.session.add_all([user, trip, gasstation])
+    db.session.commit()
 
 
 #---------------------------------------------------------------------#
-
-def connect_to_db(app):
+# when you pass a value to an argument it means if no db given use this by default:db_uri="..."
+def connect_to_db(app, db_uri="postgresql:///gasify"):
     """Connect the database to Flask app."""
 
     ####### WHAT IS THE PURPOSE OF APP.CONFIG???!!!!!!!!################
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///gasify'
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
     db.app = app
     db.init_app(app)
 

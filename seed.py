@@ -119,8 +119,3 @@ if __name__ == "__main__":
     # load_trip()
     # load_gas_station()
     # set_val_user_id()
-
-
-
-
-
