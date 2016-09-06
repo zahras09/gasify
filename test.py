@@ -52,7 +52,7 @@ class FlaskTestsBasic(TestCase):
 
 
 
-######################### MUST CREATE A FAKE DATABASE? ##############
+######################### MUST CREATE A TEST DATABASE? ##############
 
 
 class FlaskTestsDatabase(TestCase):
@@ -147,8 +147,6 @@ if __name__ == "__main__":
     import unittest
 
     unittest.main()
-
-  
 
 
 

@@ -1,40 +1,62 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+{% block content %}
+
+
+
 <head>
   <title></title>
  
- <!-- Google maps API -->
+  <!-- Google maps API -->
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>  
 
-<!-- using jquery -->
-  <script src="https://code.jquery.com/jquery.js"></script>
 
-<body>
+  <!-- using jquery -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+</head>
+  <div id='bg'>
+    <img src="/static/road-3.jpg" lat="">
+  </div>
+
+<div class='container-fluid'>
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4 col-xs-12" style="text-align:center">
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
 
 <form action="/destination-process" method="POST">
 
-Start Location: <input type="text" name="start" id="start" value=" "><br>
+Start Location: <input type="text" name="start" id="start" value=" " class="form-control" placeholder="Search"><br>
 <br>
-
-Destination: <input type="text" name="end" id="destination" value=" "><br>
-
+Destination: <input type="text" name="end" id="destination" value=" " class="form-control" placeholder="Search"><br>
 <br>
 Miles/Gallon: <!-- <input type="text" name="miles/gallon" value=" "> --><!-- <br> -->
 <select> 
-          <option value="40">40</option>
-          <option value="50">50</option>
+    <option value="40">40</option>
+    <option value="50">50</option>
 </select>
 <br>
-Tank Capcity: <!-- <input type="text" name="Tank Capacity" value=" "><br> -->
+Tank Capacity: <!-- <input type="text" name="Tank Capacity" value=" "><br> -->
 <select>
-          <option value="12.4 gallon">12.4 gallon</option>
-          <option value="20.0 gallson">20</option>
+    <option value="12.4 gallon">12.4 gallon</option>
+    <option value="20.0 gallson">20</option>
 </select>
 <br>
 <br>
-<input type="submit" value="Submit">
+<input type="submit" value="Submit"  class="btn btn-default">
 
 </form>
-</head>
-</body>
-</html>
+      </div>
+    </div>
+</div>
+
+{% endblock %}
+
+

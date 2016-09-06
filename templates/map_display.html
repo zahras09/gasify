@@ -1,66 +1,45 @@
 
-<!DOCTYPE html>
-
-<html>
-<head>
-	<title></title>
+{% extends 'base.html' %}
+{% block head %}
 	<style>
 		/*//<!-- Must add height to map or else it will not show up. -->*/
+		html, body {
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		}
 
-	      html, body {
-	        height: 100%;
-	        margin: 0;
-	        padding: 0;
-	      }
-	      #map {
-	        height: 100%;
-	      }
 	</style>
 
 
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.2/lodash.js"></script>
-	<script src="/static/mapstyles.js"></script>
 
-</head>
-<body>
 
-	<p> 
+{% endblock %}
+{% block content %}
+
+<p> 
 	Your start location is "{{ start }}" and
 	your destination is "{{ end }}"
+</p>
 	<!-- use hidden so the start and end box don't show up on the map browser page. -->
 	<input id="start" type="hidden" value="{{start}}"/>
 	<input id="end"   type="hidden" value="{{end}}"/>
 
 	<button id="FavBtn" type="button">Favorite Trip </button>
-<div>
-<form action="/logout" method="GET">
-	<button id="Logout" type="submit" value="logout">Log out </button>
-</form>
-</div>
 
-
-	<!-- <form action="/logout" method="GET">
-	    <div class="form-group">
-        <input type="submit" value="Logout" class="btn">
-    </div>
 
 	<script>
-	
- // <form action="/logout" method="GET">
-
-	// <input type="submit" value="Logout" class="btn">
-
-
-
-
 	// this funct.is for event listener funct.(for the param you can either have (e) or (evt))
 	// it's calling saveFavoriteTrip funct.
 		function handleFavoriteClick(evt){
 			console.log('AJAX starting');
 			saveFavoriteTrip();
+		}
 		
-		// this funct. is adding an alert and changing the button from one condition to another.		function handleBackFromServer(resp){
+		// this funct. is adding an alert and changing the button from one condition to another.		
+		function handleBackFromServer(resp){
 			alert('Added to favorite trips!');
 			button.prop('disabled', true);
 			button.html('Favorited');
@@ -76,9 +55,8 @@
 			// you want to send info back either as data or as an object.postParams is an obj.dict.
 			var postParams = {'start':start,
 							  'end':end};
-			// go to process-favorite route with postParams data and once the server returns info. run
-			// handleBackFromServer funct.
-			// the method is .post instead of .get b/c the there will be a change.
+			// go to process-favorite route with postParams data and once the server returns info. run handleBackFromServer funct.
+			// the method is .post instead of .get b/c the there will be a change
 			$.post('/process-favorite', postParams,  handleBackFromServer);
 
 		}
@@ -87,19 +65,20 @@
 	    button.on("click", handleFavoriteClick);
 
 	</script>
-	</p>
-	<!-- <a href="/logout"> Logout</a> -->
+<!-- <!use the map id in googlemaps.js in the function initmap() --> 
+	<div id="map" style="height:100%"></div>
+	<script src="/static/mapstyles.js"></script>
+<script src="/static/googlemaps.js"></script>
+<!-- give the route of the javasript file: -->
+<script src="/static/gasfeed.js"></script>
 
-	
-	<!-- use the map id in googlemaps.js in the function initmap() -->
-	<div id="map"></div>
+<!-- Google maps API -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKdnL2Tl4kXtLF7chKpyA-Z5_aJhEjbeM&callback=loadDirectionsWithGasStations"></script>
 
-	<script src="/static/googlemaps.js"></script>
-	<!-- give the route of the javasript file: -->
-	<script src="/static/gasfeed.js"></script>
+{% endblock %}
 
-	<!-- Google maps API -->
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKdnL2Tl4kXtLF7chKpyA-Z5_aJhEjbeM&callback=loadDirectionsWithGasStations"></script>
 
-</body>
-</html>
+
+
+
+

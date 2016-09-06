@@ -1,7 +1,4 @@
 
-
-
-
 // displaying the gas stations along the route
 function fetchAndDisplayGasStations(directions, map) {
   var locations = pickLocationsToSearchForGas(directions);
@@ -67,7 +64,6 @@ function displayGasStation(station, map, infoWindow) {
 // AND ADDING IT TO THE LIST LOCATIONS:
 function pickLocationsToSearchForGas(directions) {
   var locations = [];
-  // debugger;
 
   // TODO: directions.routes[0].overview_path
   // which is a large array of lots of lat/lng points
@@ -135,6 +131,3 @@ function pickLocationsToSearchForGas(directions) {
 
 
 }
-
-
-

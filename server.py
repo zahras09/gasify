@@ -1,7 +1,8 @@
 
 # import secrets.sh
 import gasfeed
-import os
+# Need import os only for secrets file.
+# import os  
 import json
 from flask import Flask, render_template, request, redirect, jsonify, flash, session
 from flask_debugtoolbar import DebugToolbarExtension
@@ -120,6 +121,18 @@ def process_favorite():
     # we must have something returned.
     return 'success!'
 
+@app.route('/favorite-trips', methods=['POST'])
+def favorite_trips_list():
+    """display to the user their favorite trips list"""
+    start_point = request.form.get("start")
+    destination = request.form.get("end")
+
+    fav_trip = Trip(start=start_point, end=destination)
+
+    return render_template("favorite_trips.html", start=user_entered_start_point,
+                                                  end=user_entered_destination)
+
+
 
 @app.route('/logout', methods=['GET'])
 def logout():
@@ -145,4 +158,4 @@ if __name__ == "__main__":
     # Use the DebugToolbar
     # DebugToolbarExtension(app)
 
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)

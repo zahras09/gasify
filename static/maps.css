@@ -1,49 +1,91 @@
-/*--------------------------------*/
-/*Sitewide*/
-/*--------------------------------*/
 
-body {
-    background-color: #04162b;
-    color: #FFFFFF
-}
-
-a {
-    color: #fff;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none;
-    color: #fff;
-}
-
-a:active {
-    text-decoration: none;
-    color: #fff;
-}
 
 /*--------------------------------*/
 /*Homepage*/
 /*--------------------------------*/
 
-#bearlink {
-    padding: 200px;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 100;
-    font-size: 36px;
-    color: #fff;
+#bg {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: -1;
 }
+
+#bg img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    min-height: 50%;
+    min-width: 50%;
+    opacity:.80;
+}
+form {
+    display: inline-block;
+    text-align: center;
+    }
+#heading {
+    font-family: 'Courier new', serif;
+    font-size: 12px;
+    color: black;
+}
+.form-control{
+    font-family: 'Courier new';
+    background-color: rgba(0,0,0,.25);
+    border:none !important;
+}
+
+.navbar {
+   background-color:transparent ;
+   background: rgba(0,0,0,.5);
+   border-color: transparent;
+}
+
+.navbar-inverse .navbar-nav>.active>a{
+   background-color:transparent ;
+   background: rgba(0,0,0,.5);
+   border-color: transparent;
+}
+.container-fluid{
+   background-color:transparent ;
+   background: rgba(0,0,0,.5);
+   border-color: transparent;
+}
+.btn-group-vertical>.btn-group:after, .btn-toolbar:after, .clearfix:after, .container-fluid:after, .container:after, .dl-horizontal dd:after, .form-horizontal .form-group:after, .modal-footer:after, .modal-header:after, .nav:after, .navbar-collapse:after, .navbar-header:after, .navbar:after, .pager:after, .panel-body:after, .row:after {
+    clear: none;
+}
+/*.navbar li { color: #000 } */
+#extending {
+    padding-left: 100px;
+    margin: 10px;
+
+}
+div.alert.alert-danger {
+    background-color:transparent ;
+    background: rgba(0,0,0,.5);
+    border-color: transparent;
+    text-align: center;
+    font-size: 100px;
+}
+#FavBtn{
+    background-color:transparent ;
+    background: rgba(0,0,0,.5);
+    border-color: transparent;
+    text-align: center;
+
+}
+/*.container{
+    margin: 0 auto;
+    width: 50%;
+}*/
+
 
 /*--------------------------------*/
 /*Maps*/
 /*--------------------------------*/
 
-#bear-map {
-    width: 100%;
-    height: 800px;
-}
 
-.window-content {
-    color: #04162b;
-    width: 150px;
-}
